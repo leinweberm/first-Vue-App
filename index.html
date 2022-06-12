@@ -4,13 +4,13 @@
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Product App</title>
+   <title>Ponožkárna - eshop</title>
    <link rel="stylesheet" type="text/css" href="./style.css">
 </head>
 <body>
    <div class="nav-bar">
       <div class="nav-bar-body">
-         <a :href="urlAddress">SockFactory</a>
+         <a :href="urlAddress">Ponožkárna</a>
       </div>
    </div>
 
@@ -18,9 +18,32 @@
       <div class="product">
          <div class="product-image">
             <img :src="image" :alt="altText">
+            <h3 class="sale" v-if="onSale">VÝPRODEJ</h3>
          </div>
          <div class="product-info">
-            <h1>{{ products }}</h1>
+            <h1 style="margin: 0;">{{ products }}</h1>
+
+            <ul>
+               <li v-for="detail in details">{{ detail }}</li>
+            </ul>
+            <div  v-for="variant in variants" :key="variant.variantId">
+               <p style="margin: 5px;">{{ variant.variantColor }}</p>
+            </div>
+            <b style="margin-top: 10px;">Velikosti:</b>
+            <ul>
+               <li v-for="size in sizes">{{ size }}</li>
+            </ul>
+
+            <p v-if="inStock > 10">Skladem</p>
+            <b v-else-if="inStock <= 10 && inStock > 0">Posledních 10 kusů</b>
+            <p v-else>Vyprodáno</p>
+
+            <div class="buttons">
+               <button class="addToCart">Koupit</button>
+               <div class="cart">
+                  <p style="margin: 0;">Cart({{ cart }})</p>
+               </div>
+            </div>
          </div>
       </div>
    </div>
