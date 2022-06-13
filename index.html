@@ -17,31 +17,44 @@
    <div id="app">
       <div class="product">
          <div class="product-image">
-            <img :src="image" :alt="altText">
+            <img :src="image" :alt="altText" />
             <h3 class="sale" v-if="onSale">VÝPRODEJ</h3>
          </div>
          <div class="product-info">
-            <h1 style="margin: 0;">{{ products }}</h1>
+            <h1 style="margin: 0;">{{ title }}</h1>
 
             <ul>
                <li v-for="detail in details">{{ detail }}</li>
             </ul>
             <div  v-for="variant in variants" :key="variant.variantId">
-               <p style="margin: 5px;">{{ variant.variantColor }}</p>
+               <p @mouseover="updateProduct(variant.variantImage)" style="margin: 5px; text-decoration: underline; cursor: pointer;">{{ variant.variantColor }}</p>
             </div>
             <b style="margin-top: 10px;">Velikosti:</b>
             <ul>
                <li v-for="size in sizes">{{ size }}</li>
             </ul>
 
-            <p v-if="inStock > 10">Skladem</p>
+            <b v-if="inStock > 10">Skladem</b>
             <b v-else-if="inStock <= 10 && inStock > 0">Posledních 10 kusů</b>
-            <p v-else>Vyprodáno</p>
+            <b v-else>Vyprodáno</b>
 
             <div class="buttons">
-               <button class="addToCart">Koupit</button>
+               <button 
+                  v-on:click="addToCart" 
+                  :disabled="!inStock"
+                  :class="{addToCart}">
+                     Koupit
+               </button>
                <div class="cart">
                   <p style="margin: 0;">Cart({{ cart }})</p>
+               </div>
+               <div class="addRemoveFromCart">
+                  <div v-on:click="addToCart" :disabled="!inStock" class="addItem">
+                     <p style="margin: 0; padding: 0;">+</p>
+                  </div>
+                  <div v-on:click="removeFromCart" class="removeItem">
+                     <p style="margin: 0; padding: 0;">-</p>
+                  </div>
                </div>
             </div>
          </div>
