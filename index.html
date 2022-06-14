@@ -1,67 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-   <meta charset="UTF-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Ponožkárna - eshop</title>
-   <link rel="stylesheet" type="text/css" href="./style.css">
-</head>
-<body>
-   <div class="nav-bar">
-      <div class="nav-bar-body">
-         <a :href="urlAddress">Ponožkárna</a>
-      </div>
-   </div>
-
-   <div id="app">
-      <div class="product">
-         <div class="product-image">
-            <img :src="image" :alt="altText" />
-            <h3 class="sale" v-if="onSale">VÝPRODEJ</h3>
-         </div>
-         <div class="product-info">
-            <h1 style="margin: 0;">{{ title }}</h1>
-
-            <ul>
-               <li v-for="detail in details">{{ detail }}</li>
-            </ul>
-            <div  v-for="variant in variants" :key="variant.variantId">
-               <p @mouseover="updateProduct(variant.variantImage)" style="margin: 5px; text-decoration: underline; cursor: pointer;">{{ variant.variantColor }}</p>
-            </div>
-            <b style="margin-top: 10px;">Velikosti:</b>
-            <ul>
-               <li v-for="size in sizes">{{ size }}</li>
-            </ul>
-
-            <b v-if="inStock > 10">Skladem</b>
-            <b v-else-if="inStock <= 10 && inStock > 0">Posledních 10 kusů</b>
-            <b v-else>Vyprodáno</b>
-
-            <div class="buttons">
-               <button 
-                  v-on:click="addToCart" 
-                  :disabled="!inStock"
-                  :class="{addToCart}">
-                     Koupit
-               </button>
-               <div class="cart">
-                  <p style="margin: 0;">Cart({{ cart }})</p>
-               </div>
-               <div class="addRemoveFromCart">
-                  <div v-on:click="addToCart" :disabled="!inStock" class="addItem">
-                     <p style="margin: 0; padding: 0;">+</p>
-                  </div>
-                  <div v-on:click="removeFromCart" class="removeItem">
-                     <p style="margin: 0; padding: 0;">-</p>
-                  </div>
-               </div>
-            </div>
+   <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Ponožkárna - eshop</title>
+      <link rel="stylesheet" type="text/css" href="./style.css">
+   </head>
+   <body>
+      <div class="nav-bar">
+         <div class="nav-bar-body">
+            <a :href="urlAddress">Ponožkárna</a>
          </div>
       </div>
-   </div>
 
-   <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-   <script src="./main.js"></script>
-</body>
+      <div id="app">
+         <product :premium="premium"></product>
+      </div>
+
+      <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+      <script src="./main.js"></script>
+   </body>
 </html>
