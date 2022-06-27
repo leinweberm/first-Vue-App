@@ -1,2 +1,2 @@
-# firstVueApp
-creating my first application with Vue2
+# Intro to Vue 2
+first course for beginners on vuemastery.com
